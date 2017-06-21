@@ -43,12 +43,10 @@ NewGame.prototype = {
         this.py= 0;
     }
 
-    context.fillStyle="black";
-    context.fillRect(0, 0, canvas.width, canvas.height);
- 
     context.fillStyle="lime";
     for(var i = 0; i < this.trail.length; i++) {
       context.fillRect(this.trail[i].x * this.gs, this.trail[i].y * this.gs, this.gs - 2, this.gs - 2);
+
       if(this.trail[i].x == this.px && this.trail[i].y == this.py) {
         this.tail = 5;
       }
@@ -72,32 +70,32 @@ NewGame.prototype = {
 
 document.addEventListener('keydown', function(event) {
   switch (event.keyCode) {
-    case 65 || 37: // A || left
+    case 37: // left
       movement.left = true;
       break;
-    case 87 || 38: // W || up
+    case 38: // up
       movement.up = true;
       break;
-    case 68 || 39: // D || right
+    case 39: // right
       movement.right = true;
       break;
-    case 83 || 40: // S || down
+    case 40: // down
       movement.down = true;
       break;
   }
 });
 document.addEventListener('keyup', function(event) {
   switch (event.keyCode) {
-    case 65 || 37: // A || left
+    case 37: // left
       movement.left = false;
       break;
-    case 87 || 38: // W || up
+    case 38: // up
       movement.up = false;
       break;
-    case 68 || 39: // D || right
+    case 39: // right
       movement.right = false;
       break;
-    case 83 || 40: // S || down
+    case 40: // down
       movement.down = false;
       break;
   }
@@ -121,13 +119,22 @@ var newGame = new NewGame();
 
 socket.on('state', function(players) {
   context.clearRect(0, 0, 400, 400);
+  context.fillStyle="black";
+  context.fillRect(0, 0, canvas.width, canvas.height);
 
   for (var id in players) {
-    newGame.init(players[id]);
+    var player = players[id];
 
-    // var player = players[id];
-    // context.beginPath();
-    // context.arc(player.x, player.y, 10, 0, 2 * Math.PI);
-    // context.fill();    
+    context.fillStyle="lime";
+    for(var i = 0; i < player.trail.length; i++) {
+      context.fillRect(player.trail[i].x * player.gs, player.trail[i].y * player.gs, player.gs - 2, player.gs - 2);
+
+      if(player.trail[i].x == player.px && player.trail[i].y == player.py) {
+        player.tail = 5;
+      }
+    }
+    context.fillStyle="red";
+    context.fillRect(player.ax * player.gs, player.ay * player.gs, player.gs-2, player.gs-2);
+    
   }
 });
