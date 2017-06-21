@@ -8,11 +8,11 @@ var server = http.Server(app);
 var io = socketIO(server);
  
 app.set('port', 5000);
-app.use('/static', express.static(__dirname + '/static'));
+app.use('/public', express.static(__dirname + '/public'));
  
 // Маршруты
 app.get('/', function(request, response) {
-    response.sendFile(path.join(__dirname, 'index.html'));
+    response.sendFile(__dirname + '/index.html');
 });
  
 // Запуск сервера
