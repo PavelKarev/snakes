@@ -129,7 +129,7 @@ socket.on('state', function(players) {
     for(var i = 0; i < player.trail.length; i++) {
       context.fillRect(player.trail[i].x * player.gs, player.trail[i].y * player.gs, player.gs - 2, player.gs - 2);
 
-      if(player.trail[i].x == player.px && player.trail[i].y == player.py) {
+      if(player.trail[i].x === player.px && player.trail[i].y === player.py) {
         player.tail = 5;
       }
     }
