@@ -14,7 +14,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.get('/', function(request, response) {
     response.sendFile(__dirname + '/index.html');
 });
- 
+
 // Запуск сервера
 server.listen(5000, function() {
     console.log('Запускаю сервер на порте 5000');
